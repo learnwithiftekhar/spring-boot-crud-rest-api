@@ -27,7 +27,7 @@ services:
       - DB_HOST=mysqldb
       - DB_NAME=productdb
       - DB_USER=ifte
-      - DB_PASSWORD=securepass
+      - DB_PASSWORD=1234
     depends_on:
       mysqldb:
         condition: service_healthy

@@ -13,7 +13,7 @@ RUN mvn clean package -DskipTests
 
 # Stage 3: Create a Lightweight Runtime Image
 # We use a smaller JRE image (Alpine) for production
-FROM ${BASE_JRE_IMAGE} AS runtime
+FROM eclipse-temurin:21-jre-alpine AS runtime
 WORKDIR /app
 
 ARG JAR_FILE=*.jar

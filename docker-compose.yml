@@ -2,12 +2,11 @@ version: '3.8'
 services:
   mysqldb:
     image: mysql:8.0
-    container_name: production-mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=productdb
-      - MYSQL_USER=ifte
-      - MYSQL_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
@@ -15,19 +14,19 @@ services:
     networks:
       - backend-network
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "mysql -h localhost -u ${DB_USER} -p${DB_PASSWORD} -e 'SELECT 1'"] 
       timeout: 20s
       retries: 10
   app:
     build: .
-    container_name: product-service
     ports:
       - "8080:8080"
     environment:
       - DB_HOST=mysqldb
-      - DB_NAME=productdb
-      - DB_USER=ifte
-      - DB_PASSWORD=1234
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       mysqldb:
         condition: service_healthy

@@ -1,5 +1,5 @@
-ARG BASE_JRE_IMAGE=eclipse-temurin:21-jre-alpine
 # Stage 1: Download the Dependency
+ARG BASE_JRE_IMAGE=eclipse-temurin:21-jre-alpine
 FROM eclipse-temurin:21-jdk-alpine AS dependencies
 RUN apk add --no-cache maven
 WORKDIR /build

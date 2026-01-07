@@ -36,3 +36,5 @@ volumes:
   mysql-data:
 networks:
   backend-network:
+    name: backend-network
+    driver: bridge

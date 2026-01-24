@@ -29,12 +29,31 @@ A RESTful API built with Spring Boot for managing products. This API provides en
 
 ## Database Configuration
 
-The application is configured to connect to a MySQL database. Update the following properties in `src/main/resources/application.properties` if needed:
+The application is configured to connect to a MySQL database. You can configure the database connection using environment variables. 
+
+### Environment Variables Setup
+
+1. Copy the `.env.example` file to a new file named `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open the `.env` file and update the values with your actual database credentials:
+   ```env
+   ROOT_PASSWORD=your_root_password
+   DB_NAME=productdb
+   DB_USER=ifte
+   DB_PASSWORD=your_password
+   DB_PORT=3306
+   ```
+
+### Application Properties Configuration
+
+The application uses these environment variables in `src/main/resources/application.properties`:
 
 ```properties
-spring.datasource.url=MYSQL DATABASE URL
-spring.datasource.username=DATABASE USERNAME
-spring.datasource.password=DATABASE PASSWORD
+spring.datasource.url=jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:productdb}
+spring.datasource.username=${DB_USER:root}
+spring.datasource.password=${DB_PASSWORD:1234}
 ```
 
 ## Building and Running the Application
@@ -402,7 +421,9 @@ curl http://localhost:8080/api/products
 ```
 
 ### Using Docker Compose (app + MySQL)
-The included `docker-compose.yml` defines two services: `mysqldb` (MySQL 8) and `app` (this API).
+The included `docker-compose.yml` defines services: `mysqldb`, `app`, `redis`, `prometheus`, and `grafana`.
+
+**Note**: Docker Compose will automatically load environment variables from the `.env` file if it exists in the same directory.
 
 Key points:
 - MySQL service creates database `productdb` with user `ifte` and password `1234` (see `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`).

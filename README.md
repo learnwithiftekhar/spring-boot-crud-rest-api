@@ -454,6 +454,31 @@ spring.datasource.password=${DB_PASSWORD:1234}
 - Authentication failures: ensure `DB_USER`/`DB_PASSWORD` match `MYSQL_USER`/`MYSQL_PASSWORD`. With the provided config, both should be `ifte` and `1234` respectively.
 - Connecting from container to host DB on Linux: replace `host.docker.internal` with your host IP (e.g., `172.17.0.1`).
 
+## Monitoring with Grafana
+
+The project includes a pre-configured Prometheus and Grafana setup for monitoring the application metrics.
+
+### Accessing Grafana
+1. Ensure the services are running with `docker compose up -d`.
+2. Open your browser and go to `http://localhost:3000`.
+3. Login with the default credentials:
+   - **Username**: `admin`
+   - **Password**: `admin`
+
+### Setting up Prometheus Data Source
+1. In Grafana, go to **Configuration** (gear icon) -> **Data Sources**.
+2. Click **Add data source** and select **Prometheus**.
+3. Set the URL to: `http://prometheus:9090`.
+4. Click **Save & Test**.
+
+### Importing the Dashboard
+1. In Grafana, go to **Dashboards** -> **Import**.
+2. Upload the `grafana.json` file provided in the root of this repository or copy-paste its content.
+3. Select the **Prometheus** data source you just created.
+4. Click **Import**.
+
+The dashboard will now display real-time metrics from your Spring Boot application, including request rates, error rates, and JVM statistics.
+
 
 ## Contact
 

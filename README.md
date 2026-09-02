@@ -1,6 +1,7 @@
 # Spring Boot REST API (CRUD Operation)
 
 A RESTful API built with Spring Boot for managing products. This API provides endpoints for creating, reading, updating, and deleting product information.
+<img width="808" height="323" alt="Bildschirmfoto vom 2026-09-02 15-10-07" src="https://github.com/user-attachments/assets/70410ab7-3d51-4ac4-9b7d-23b258511e44" />
 
 ## Features
 
